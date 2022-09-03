@@ -88,6 +88,14 @@ export const Provider = (props) => {
         }
     }
 
+    async function handleGetCourse(id) {
+        const response = await api(`/courses/${id}`);
+
+        if (response.status === 200) {
+            return response.json();
+        }
+    };
+
     return (
       <Context.Provider value={{
         user,
@@ -95,7 +103,8 @@ export const Provider = (props) => {
             signIn: handleSignIn,
             signUp: handleSignUp,
             signOut: handleSignOut,
-            getCourses: handleGetCourses
+            getCourses: handleGetCourses,
+            getCourse: handleGetCourse
         }
       }}>
         {props.children}
