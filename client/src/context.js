@@ -58,13 +58,21 @@ export const Provider = (props) => {
         } else {
             throw new Error();
         }
+    };
+
+    // function to sign out user
+    async function handleSignOut() {
+        setAuthedUsername('');
+        setAuthedUserPassword('');
+        setUser(null);
     }
 
     return (
       <Context.Provider value={{
         user,
         actions: {
-            signIn: handleSignIn
+            signIn: handleSignIn,
+            signOut: handleSignOut
         }
       }}>
         {props.children}

@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../context';
 
 const SignIn = () => {
@@ -9,14 +9,16 @@ const SignIn = () => {
     const [ emailAddress, setEmailAddress ] = useState('');
     const [ password, setPassword ] = useState('');
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         // call sign in function
         actions.signIn(emailAddress, password)
-            .then (response => {
+            .then(response => {
                 if (response !== null) {
-                    Navigate('/');
+                    navigate('/');
                 } else {
                     console.log('sign in failed');
                 };

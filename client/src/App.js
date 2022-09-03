@@ -8,6 +8,7 @@ import UpdateCourse from './Components/UpdateCourse';
 import CreateCourse from './Components/CreateCourse';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
+import SignOut from './Components/SignOut';
 import NotFound from './Components/NotFound';
 import Error from './Components/Error';
 import Forbidden from './Components/Forbidden';
@@ -26,6 +27,7 @@ function App() {
         <Route path='/courses/:id' element={ <CourseDetail /> } />
         <Route path='/signin' element={ <SignIn /> } />
         <Route path='/signup' element={ <SignUp /> } />
+        <Route path='/signout' element={ <SignOut /> } />
         <Route path='/notfound' element={ <NotFound /> } />
         <Route path='/error' element={ <Error /> } />
         <Route path='/forbidden' element={ <Forbidden /> } />
