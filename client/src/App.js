@@ -5,6 +5,7 @@ import Header from './Components/Header';
 import Courses from './Components/Courses';
 import CourseDetail from './Components/CourseDetail';
 import UpdateCourse from './Components/UpdateCourse';
+import CreateCourse from './Components/CreateCourse';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import NotFound from './Components/NotFound';
@@ -19,11 +20,15 @@ function App() {
 
       <Routes>
         <Route exact path='/' element={ <Navigate replace to='/courses'/> } />
-        <Route exact path='/courses' element={ <Courses /> } />
-        <Route path='/courses/:id' element={ <CourseDetail /> } />
+        <Route path='/courses' element={ <Courses /> } />
+        <Route path='/courses/create' element={ <CreateCourse /> } />
         <Route path='/courses/:id/update' element={ <UpdateCourse /> } />
+        <Route path='/courses/:id' element={ <CourseDetail /> } />
         <Route path='/signin' element={ <SignIn /> } />
         <Route path='/signup' element={ <SignUp /> } />
+        <Route path='/notfound' element={ <NotFound /> } />
+        <Route path='/error' element={ <Error /> } />
+        <Route path='/forbidden' element={ <Forbidden /> } />
       </Routes>
     </>
   );

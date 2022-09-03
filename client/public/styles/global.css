@@ -29,7 +29,7 @@ a {
     padding: 0 1rem;
 }
 header {
-    background: #57496e;
+    background: linear-gradient(to bottom right, rgb(129, 52, 148), #ca8832);
     color: #fff;
     padding: 1rem 0;
     margin-bottom: 2rem;
@@ -62,11 +62,16 @@ header nav a:hover {
     margin-left: .5rem;
 }
 .course--module {
-    background: #7c689b;
+    background: linear-gradient(to bottom right, #ca8832, rgb(129, 52, 148));
+    text-align: center;
     border-radius: .5rem;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     display: block;
+    transition: transform .3s ease-in-out;
+}
+.course--module:hover {
+    transform: scale(1.1)
 }
 .course--label {
     color: #fff;
@@ -80,8 +85,8 @@ header nav a:hover {
     font-size: 1.25rem;
 }
 .course--add--module {
-    background: #ddd9e4;
-    color: #57496e;
+    background: linear-gradient(to bottom right, #ffe1b9, rgb(243, 197, 255)) ;
+    color: rgb(129, 52, 148);
     font-weight: 300;
     font-size: 1.25rem;
 }
@@ -167,7 +172,7 @@ textarea {
     min-height: 300px;
 }
 .button {
-    background: #7c689b;
+    background: #ca8832;
     color: #fff;
     font-size: 1rem;
     padding: .75rem 1.5rem;
@@ -188,9 +193,9 @@ textarea {
     cursor: pointer;
 }
 .button-secondary {
-    color: #7c689b;
+    color: #ca8832;
     background: none;
-    box-shadow: 0 0 0 2px #7c689b inset;
+    box-shadow: 0 0 0 2px #ca8832 inset;
     transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {
