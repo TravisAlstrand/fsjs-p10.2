@@ -60,8 +60,17 @@ export const Provider = (props) => {
         }
     };
 
+    async function handleSignUp(body) {
+        const response = await api('/users', 'POST', body);
+
+        if (response.status === 201) {
+            return true;
+        }
+        return response.json();
+    };
+
     // function to sign out user
-    async function handleSignOut() {
+    function handleSignOut() {
         setAuthedUsername('');
         setAuthedUserPassword('');
         setUser(null);
@@ -72,6 +81,7 @@ export const Provider = (props) => {
         user,
         actions: {
             signIn: handleSignIn,
+            signUp: handleSignUp,
             signOut: handleSignOut
         }
       }}>
