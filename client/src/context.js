@@ -76,13 +76,26 @@ export const Provider = (props) => {
         setUser(null);
     }
 
+    /* ========================================== */
+    /* ------------- COURSE API CALLS ----------- */
+    /* ========================================== */
+
+    async function handleGetCourses() {
+        const response = await api('/courses');
+
+        if (response.status === 200) {
+            return response.json();
+        }
+    }
+
     return (
       <Context.Provider value={{
         user,
         actions: {
             signIn: handleSignIn,
             signUp: handleSignUp,
-            signOut: handleSignOut
+            signOut: handleSignOut,
+            getCourses: handleGetCourses
         }
       }}>
         {props.children}

@@ -1,22 +1,33 @@
+import { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Context } from '../context';
 
 const Courses = () => {
+
+    const { actions } = useContext(Context);
+
+    const [ courses, setCourses ] = useState([]);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            await actions.getCourses()
+                .then(response => setCourses(response));
+        }
+        fetchCourses();
+    });
+
     return (
         <main>
             <div className="wrap main--grid">
                 {/* map over courses here */}
-                <Link className="course--module course--link" to="/courses/:id">
-                    <h2 className="course--label">Course</h2>
-                    <h3 className="course--title">Build a Basic Bookcase</h3>
-                </Link>
-                <Link className="course--module course--link" to="/courses/:id">
-                    <h2 className="course--label">Course</h2>
-                    <h3 className="course--title">Learn How to Program</h3>
-                </Link>
-                <Link className="course--module course--link" to="/courses/:id">
-                    <h2 className="course--label">Course</h2>
-                    <h3 className="course--title">Learn How to Test Programs</h3>
-                </Link>
+                {courses.map((course, index) => {
+                    return(
+                        <Link className="course--module course--link" to={`/courses/${course.id}`}>
+                            <h2 className="course--label">Course</h2>
+                            <h3 className="course--title">{course.title}</h3>
+                        </Link>
+                    );
+                })}
             
                 <Link className="course--module course--add--module" to="/courses/create">
                     <span className="course--add--title">
