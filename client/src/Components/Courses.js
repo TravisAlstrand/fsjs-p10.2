@@ -1,20 +1,17 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Context } from '../context';
 
 const Courses = () => {
 
-    const { actions } = useContext(Context);
-
-    const [ courses, setCourses ] = useState([]);
+    const { actions, courses } = useContext(Context);
 
     useEffect(() => {
         const fetchCourses = async () => {
-            await actions.getCourses()
-                .then(response => setCourses(response));
+            await actions.getCourses();
         }
-        fetchCourses();
-    });
+        fetchCourses(); // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <main>

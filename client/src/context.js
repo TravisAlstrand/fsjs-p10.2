@@ -14,6 +14,12 @@ export const Provider = (props) => {
     // state for password
     const [ authedUserPassword, setAuthedUserPassword ] = useState('');
 
+    // state for all courses
+    const [ courses, setCourses ] = useState([]);
+
+    // state for current course
+    const [ course, setCourse ] = useState(null);
+
     // function for all api requests
     function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
         // base url
@@ -84,7 +90,9 @@ export const Provider = (props) => {
         const response = await api('/courses');
 
         if (response.status === 200) {
-            return response.json();
+            response.json()
+                .then(data => setCourses(data));
+            return courses;
         }
     }
 
@@ -92,13 +100,17 @@ export const Provider = (props) => {
         const response = await api(`/courses/${id}`);
 
         if (response.status === 200) {
-            return response.json();
+            response.json()
+                .then(data => setCourse(data))
+            return course;
         }
     };
 
     return (
       <Context.Provider value={{
         user,
+        courses,
+        course,
         actions: {
             signIn: handleSignIn,
             signUp: handleSignUp,

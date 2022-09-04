@@ -11,7 +11,7 @@ const SignIn = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    function handleSubmit(e){
         e.preventDefault();
 
         // call sign in function
