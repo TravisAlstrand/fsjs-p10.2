@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Context } from '../context';
 
@@ -7,7 +7,6 @@ const CourseDetail = () => {
 
     const { actions, user, course } = useContext(Context);
     const { id } = useParams();
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCourse = async () => {

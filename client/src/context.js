@@ -106,6 +106,14 @@ export const Provider = (props) => {
         }
     };
 
+    async function handleUpdateCourse(body, id) {
+        const response = await api(`/courses/${id}`, 'PUT', body, true, {username: authedUsername, password: authedUserPassword});
+
+        if (response.status === 204) {
+            return true;
+        }
+    }
+
     return (
       <Context.Provider value={{
         user,
@@ -116,7 +124,8 @@ export const Provider = (props) => {
             signUp: handleSignUp,
             signOut: handleSignOut,
             getCourses: handleGetCourses,
-            getCourse: handleGetCourse
+            getCourse: handleGetCourse,
+            updateCourse: handleUpdateCourse
         }
       }}>
         {props.children}
