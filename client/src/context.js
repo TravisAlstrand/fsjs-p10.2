@@ -111,6 +111,16 @@ export const Provider = (props) => {
 
         if (response.status === 204) {
             return true;
+        } else if (response.status === 400) {
+            return response.json();
+        }
+    }
+
+    async function handleCreateCourse(body) {
+        const response = await api('/courses', 'POST', body, true, {username: authedUsername, password: authedUserPassword});
+
+        if (response.status === 201) {
+            return true;
         }
     }
 
@@ -134,6 +144,7 @@ export const Provider = (props) => {
             getCourses: handleGetCourses,
             getCourse: handleGetCourse,
             updateCourse: handleUpdateCourse,
+            createCourse: handleCreateCourse,
             deleteCourse: handleDeleteCourse
         }
       }}>
