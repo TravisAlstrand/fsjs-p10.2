@@ -35,17 +35,14 @@ const CourseDetail = () => {
             <main>
                 <div className="actions--bar">
                     <div className="wrap">
-                        { user !== null ? (
-                            user.userId === course.userId ? (
+                        { user !== null && user.userId === course.userId ? (
                                 <>
                                     <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
                                     <button className="button" href='/' onClick={deleteCourse}>Delete Course</button>
                                 </>
                             ) : (
                                 <></>
-                            )) : (
-                                <></>
-                        )}
+                            )}
                         
                         <Link className="button button-secondary" to="/">Return to List</Link>
                     </div>

@@ -9,6 +9,7 @@ const CreateCourse = () => {
     const [ description, setDescription ] = useState('');
     const [ estimatedTime, setEstimatedTime ] = useState('');
     const [ materialsNeeded, setMaterialsNeeded ] = useState('');
+    const [ errors, setErrors ] = useState([]);
 
     const navigate = useNavigate();
 
@@ -35,7 +36,9 @@ const CreateCourse = () => {
             .then(response => {
                 if (response === true) {
                     navigate('/');
-                };
+                } else if (response.errors) {
+                    setErrors(response.errors);
+                }
             });
     }
 
@@ -43,13 +46,23 @@ const CreateCourse = () => {
         <main>
             <div className="wrap">
                 <h2>Create Course</h2>
-                {/* <div className="validation--errors">
-                    <h3>Validation Errors</h3>
-                    <ul>
-                        <li>Please provide a value for "Title"</li>
-                        <li>Please provide a value for "Description"</li>
-                    </ul>
-                </div> */}
+                
+                    {errors.length > 0 ? (
+                        <div className="validation--errors">
+                            <h3>Validation Errors</h3>
+                            <ul>
+                                {errors.map((error, index) => {
+                                    return (
+                                        <li key={index}>{error}</li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+
+
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>

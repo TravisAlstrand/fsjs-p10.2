@@ -15,10 +15,7 @@ const UpdateCourse = () => {
 
     useEffect(() => {
         const fetchCourse = async () => {
-            await actions.getCourse(id)
-                .then(response => {
-                    console.log(response);
-                })
+            await actions.getCourse(id);
         }; 
         fetchCourse(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -42,7 +39,6 @@ const UpdateCourse = () => {
                     navigate('/forbidden');
                 }
             })
-
     };
 
     return (

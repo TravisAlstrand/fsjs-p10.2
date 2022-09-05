@@ -125,6 +125,8 @@ export const Provider = (props) => {
 
         if (response.status === 201) {
             return true;
+        } else if (response.status === 400) {
+            return response.json();
         }
     }
 
