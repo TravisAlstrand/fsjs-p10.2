@@ -61,8 +61,6 @@ export const Provider = (props) => {
                 .then(data => setUser(data));
         } else if (response.status === 401) {
             return null;
-        } else {
-            throw new Error();
         }
     };
 
@@ -71,8 +69,10 @@ export const Provider = (props) => {
 
         if (response.status === 201) {
             return true;
+        } else if (response.status === 400) {
+            return response.json();
         }
-        return response.json();
+        
     };
 
     // function to sign out user
@@ -93,7 +93,7 @@ export const Provider = (props) => {
             response.json()
                 .then(data => setCourses(data));
             return courses;
-        }
+        } 
     }
 
     async function handleGetCourse(id) {
@@ -103,6 +103,8 @@ export const Provider = (props) => {
             response.json()
                 .then(data => setCourse(data))
             return course;
+        } else if (response.status === 404) {
+            return null;
         }
     };
 
@@ -113,6 +115,8 @@ export const Provider = (props) => {
             return true;
         } else if (response.status === 400) {
             return response.json();
+        } else if (response.status === 403) {
+            return 'no-auth';
         }
     }
 

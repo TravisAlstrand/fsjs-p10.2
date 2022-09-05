@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Context } from '../context';
 
@@ -12,6 +12,16 @@ const UpdateCourse = () => {
     const [ description, setDescription ] = useState(course.description);
     const [ estimatedTime, setEstimatedTime ] = useState(course.estimatedTime);
     const [ materialsNeeded, setMaterialsNeeded ] = useState(course.materialsNeeded);
+
+    useEffect(() => {
+        const fetchCourse = async () => {
+            await actions.getCourse(id)
+                .then(response => {
+                    console.log(response);
+                })
+        }; 
+        fetchCourse(); // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +38,8 @@ const UpdateCourse = () => {
             .then(response => {
                 if (response === true) {
                     navigate(`/courses/${id}`);
+                } else if (response === 'no-auth') {
+                    navigate('/forbidden');
                 }
             })
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../context';
 
@@ -11,6 +11,12 @@ const CreateCourse = () => {
     const [ materialsNeeded, setMaterialsNeeded ] = useState('');
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user === null) {
+            navigate('/');
+        }
+    });
 
 
     const handleSubmit = (e) => {

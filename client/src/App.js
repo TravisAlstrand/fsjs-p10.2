@@ -9,6 +9,7 @@ import CreateCourse from './Components/CreateCourse';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import SignOut from './Components/SignOut';
+import PrivateRoute from './Components/PrivateRoute';
 import NotFound from './Components/NotFound';
 import Error from './Components/Error';
 import Forbidden from './Components/Forbidden';
@@ -22,8 +23,6 @@ function App() {
       <Routes>
         <Route exact path='/' element={ <Navigate replace to='/courses'/> } />
         <Route path='/courses' element={ <Courses /> } />
-        <Route path='/courses/create' element={ <CreateCourse /> } />
-        <Route path='/courses/:id/update' element={ <UpdateCourse /> } />
         <Route path='/courses/:id' element={ <CourseDetail /> } />
         <Route path='/signin' element={ <SignIn /> } />
         <Route path='/signup' element={ <SignUp /> } />
@@ -31,6 +30,13 @@ function App() {
         <Route path='/notfound' element={ <NotFound /> } />
         <Route path='/error' element={ <Error /> } />
         <Route path='/forbidden' element={ <Forbidden /> } />
+
+        <Route element={ <PrivateRoute /> }>
+          <Route path='/courses/create' element={ <CreateCourse /> } />
+          <Route path='/courses/:id/update' element={ <UpdateCourse /> } />
+        </Route>
+        <Route path='*' element={ <NotFound /> } />
+
       </Routes>
     </>
   );

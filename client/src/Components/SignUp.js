@@ -12,6 +12,7 @@ const SignUp = () => {
     const [ lastName, setLastName ] = useState('');
     const [ emailAddress, setEmailAddress ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ errors, setErrors ] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,8 +27,12 @@ const SignUp = () => {
 
         actions.signUp(userBody)
             .then(response => {
-                actions.signIn(emailAddress, password);
-                navigate('/');
+                if (response.errors) {
+                    setErrors(response.errors);
+                } else {
+                    actions.signIn(emailAddress, password);
+                    navigate('/');
+                }
             })
     };
 
@@ -35,15 +40,30 @@ const SignUp = () => {
         <main>
             <div className="form--centered">
                 <h2>Sign Up</h2>
+
+                {errors.length > 0 ? (
+                    <div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {errors.map((error, index) => {
+                                return (
+                                    <li key={index}>{error}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                ) : (
+                    <></>
+                )}
                 
                 <form onSubmit={handleSubmit}>
-                    <label for="firstName">First Name</label>
+                    <label htmlFor="firstName">First Name</label>
                     <input id="firstName" name="firstName" type="text" onChange={e => setFirstName(e.target.value)} />
-                    <label for="lastName">Last Name</label>
+                    <label htmlFor="lastName">Last Name</label>
                     <input id="lastName" name="lastName" type="text" onChange={e => setLastName(e.target.value)} />
-                    <label for="emailAddress">Email Address</label>
+                    <label htmlFor="emailAddress">Email Address</label>
                     <input id="emailAddress" name="emailAddress" type="email" onChange={e => setEmailAddress(e.target.value)} />
-                    <label for="password">Password</label>
+                    <label htmlFor="password">Password</label>
                     <input id="password" name="password" type="password" onChange={e => setPassword(e.target.value)} />
                     <button className="button" type="submit">Sign Up</button>
                     <Link to='/'>

@@ -11,7 +11,12 @@ const CourseDetail = () => {
 
     useEffect(() => {
         const fetchCourse = async () => {
-            await actions.getCourse(id);
+            await actions.getCourse(id)
+                .then(response => {
+                    if (response === null) {
+                        navigate('/notfound');
+                    }
+                })
         };
         fetchCourse(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

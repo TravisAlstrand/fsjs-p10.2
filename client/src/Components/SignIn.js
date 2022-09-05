@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Context } from '../context';
 
 const SignIn = () => {
@@ -8,8 +8,10 @@ const SignIn = () => {
 
     const [ emailAddress, setEmailAddress ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ error, setError ] = useState('');
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     function handleSubmit(e){
         e.preventDefault();
@@ -18,9 +20,13 @@ const SignIn = () => {
         actions.signIn(emailAddress, password)
             .then(response => {
                 if (response !== null) {
-                    navigate('/');
+                    if (location.state?.from) {
+                        navigate(location.state.from);
+                    } else {
+                        navigate('/');
+                    }
                 } else {
-                    console.log('sign in failed');
+                    setError('Please try your credentials again');
                 };
             });
     };
@@ -29,6 +35,12 @@ const SignIn = () => {
         <main>
             <div className="form--centered">
                 <h2>Sign In</h2>
+
+                {error !== '' ? (
+                    <p className="validation--errors">{error}</p> 
+                ) : (
+                    <></>
+                )}
                 
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="emailAddress">Email Address</label>
