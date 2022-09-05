@@ -114,6 +114,14 @@ export const Provider = (props) => {
         }
     }
 
+    async function handleDeleteCourse(id) {
+        const response = await api(`/courses/${id}`, 'DELETE', null, true, {username: authedUsername, password: authedUserPassword});
+
+        if (response.status === 204) {
+            return true;
+        }
+    }
+
     return (
       <Context.Provider value={{
         user,
@@ -125,7 +133,8 @@ export const Provider = (props) => {
             signOut: handleSignOut,
             getCourses: handleGetCourses,
             getCourse: handleGetCourse,
-            updateCourse: handleUpdateCourse
+            updateCourse: handleUpdateCourse,
+            deleteCourse: handleDeleteCourse
         }
       }}>
         {props.children}

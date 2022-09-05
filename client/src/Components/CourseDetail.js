@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Context } from '../context';
 
@@ -7,6 +7,7 @@ const CourseDetail = () => {
 
     const { actions, user, course } = useContext(Context);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -14,6 +15,15 @@ const CourseDetail = () => {
         };
         fetchCourse(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const deleteCourse = () => {
+        actions.deleteCourse(course.id)
+            .then(response => {
+                if (response === true) {
+                    navigate('/');
+                }
+            })
+    }
 
     if (course !== null) {
         return (
@@ -24,7 +34,7 @@ const CourseDetail = () => {
                             user.userId === course.userId ? (
                                 <>
                                     <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
-                                    <Link className="button" to={`/courses/${course.id}/delete`}>Delete Course</Link>
+                                    <button className="button" href='/' onClick={deleteCourse}>Delete Course</button>
                                 </>
                             ) : (
                                 <></>
