@@ -101,7 +101,6 @@ export const Provider = (props) => {
         
         if (response.status === 200) {
             const course = response.json();
-            console.log(course);
             return (course);
         } else if (response.status === 404) {
             return null;

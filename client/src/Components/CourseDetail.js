@@ -17,6 +17,7 @@ const CourseDetail = () => {
                     if (response === null) {
                         navigate('/notfound');
                     } else {
+                        console.log(response);
                         setCourse(response);
                     }
                 })
@@ -58,7 +59,7 @@ const CourseDetail = () => {
                             <div>
                                 <h3 className="course--detail--title">Course</h3>
                                 <h4 className="course--name">{course.title}</h4>
-                                <p>By {course.courseCreator.firstName} {course.courseCreator.lastName}</p>
+                                {/* <p>By {course.courseCreator.firstName} {course.courseCreator.lastName}</p> */}
     
                                 <ReactMarkdown>{course.description}</ReactMarkdown>
                             </div>

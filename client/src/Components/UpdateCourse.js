@@ -4,10 +4,11 @@ import { Context } from '../context';
 
 const UpdateCourse = () => {
 
-    const { actions, course, user } = useContext(Context);
+    const { actions, user } = useContext(Context);
     const { id } = useParams();
     const navigate = useNavigate();
 
+    const [ course, setCourse ] = useState({});
     const [ title, setTitle] = useState(course.title);
     const [ description, setDescription ] = useState(course.description);
     const [ estimatedTime, setEstimatedTime ] = useState(course.estimatedTime);
@@ -15,8 +16,16 @@ const UpdateCourse = () => {
 
     useEffect(() => {
         const fetchCourse = async () => {
-            await actions.getCourse(id);
-        }; 
+            await actions.getCourse(id)
+                .then(response => {
+                    if (response === null) {
+                        navigate('/notfound');
+                    } else {
+                        console.log(response);
+                        setCourse(response);
+                    }
+                })
+        };
         fetchCourse(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -51,7 +60,7 @@ const UpdateCourse = () => {
                             <label htmlFor="courseTitle">Course Title</label>
                             <input id="courseTitle" name="courseTitle" type="text" defaultValue={course.title} onChange={e => setTitle(e.target.value)} />
 
-                            <p>By {course.courseCreator.firstName} {course.courseCreator.lastName}</p>
+                            {/* <p>By {course.courseCreator.firstName} {course.courseCreator.lastName}</p> */}
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" defaultValue={course.description} onChange={e => setDescription(e.target.value)} />
