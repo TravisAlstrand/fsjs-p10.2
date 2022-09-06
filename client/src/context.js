@@ -18,7 +18,7 @@ export const Provider = (props) => {
     const [ courses, setCourses ] = useState([]);
 
     // state for current course
-    const [ course, setCourse ] = useState(null);
+    // const [ course, setCourse ] = useState(null);
 
     // function for all api requests
     function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
@@ -98,11 +98,9 @@ export const Provider = (props) => {
 
     async function handleGetCourse(id) {
         const response = await api(`/courses/${id}`);
-
+        
         if (response.status === 200) {
-            response.json()
-                .then(data => setCourse(data))
-            return course;
+            return response.json();
         } else if (response.status === 404) {
             return null;
         }
@@ -142,7 +140,6 @@ export const Provider = (props) => {
       <Context.Provider value={{
         user,
         courses,
-        course,
         actions: {
             signIn: handleSignIn,
             signUp: handleSignUp,

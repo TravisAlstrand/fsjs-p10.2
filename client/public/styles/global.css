@@ -1,4 +1,9 @@
 /* global.css */
+:root {
+    --sunset-bg: rgb(29, 12, 37);
+    --sunset-gradient: linear-gradient(to bottom right, rgb(91, 39, 104), rgb(129, 52, 148), #ca8832);
+    --sunset-text: #ffe6c5;
+}
 * {
     box-sizing: border-box;
 }
@@ -7,6 +12,8 @@ html {
 }
 body {
     font-family: 'Work Sans', sans-serif;
+    background-color: var(--sunset-bg);
+    color: var(--sunset-text);
 }
 h2 {
     font-size: 1.5rem;
@@ -29,8 +36,8 @@ a {
     padding: 0 1rem;
 }
 header {
-    background: linear-gradient(to bottom right, rgb(129, 52, 148), #ca8832);
-    color: #fff;
+    background: var(--sunset-gradient);
+    color: var(--sunset-text);
     padding: 1rem 0;
     margin-bottom: 2rem;
 }
@@ -41,18 +48,22 @@ header {
 }
 .header--logo a {
     font-size: 1.25rem;
+    color: var(--sunset-text);
+    transition: color .4s ease;
+}
+.header--logo a:hover {
     color: #fff;
 }
 header li {
     font-size: .8rem;
 }
 header nav a {
-    color: #dbd;
+    color: var(--sunset-text);
+    transition: color .4s ease;
 }
 header nav a:hover {
     color: #fff;
 }
-
 .header--signedin li {
     text-align: right;
     line-height: 1.25;
@@ -62,7 +73,7 @@ header nav a:hover {
     margin-left: .5rem;
 }
 .course--module {
-    background: linear-gradient(to bottom right, #ca8832, rgb(129, 52, 148));
+    background: var(--sunset-gradient);
     text-align: center;
     border-radius: .5rem;
     padding: 1.5rem;
@@ -74,19 +85,19 @@ header nav a:hover {
     transform: scale(1.1)
 }
 .course--label {
-    color: #fff;
+    color: var(--sunset-text);
     font-size: .9rem;
     font-weight: 400;
     margin-bottom: .25rem;
 }
 .course--title {
-    color: #fff;
+    color: var(--sunset-text);
     font-weight: 700;
     font-size: 1.25rem;
 }
 .course--add--module {
-    background: linear-gradient(to bottom right, #ffe1b9, rgb(243, 197, 255)) ;
-    color: rgb(129, 52, 148);
+    background: var(--sunset-gradient);
+    color: var(--sunset-text);
     font-weight: 300;
     font-size: 1.25rem;
 }
@@ -94,7 +105,7 @@ header nav a:hover {
     width: 20px;
     height: auto;
     margin-right: 5px;
-    fill: #57496e;
+    fill: white;
 }
 .course--detail--title {
     padding-bottom: .25rem;
@@ -173,7 +184,7 @@ textarea {
 }
 .button {
     background: #ca8832;
-    color: #fff;
+    color: var(--sunset-text);
     font-size: 1rem;
     padding: .75rem 1.5rem;
     border: 0;

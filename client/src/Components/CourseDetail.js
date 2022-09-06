@@ -1,11 +1,12 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Context } from '../context';
 
 const CourseDetail = () => {
 
-    const { actions, user, course } = useContext(Context);
+    const { actions, user } = useContext(Context);
+    const [ course, setCourse ] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -15,6 +16,8 @@ const CourseDetail = () => {
                 .then(response => {
                     if (response === null) {
                         navigate('/notfound');
+                    } else {
+                        setCourse(response);
                     }
                 })
         };
