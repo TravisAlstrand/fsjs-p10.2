@@ -16,10 +16,7 @@ export const Provider = (props) => {
 
     // state for all courses
     const [ courses, setCourses ] = useState([]);
-
-    // state for current course
-    // const [ course, setCourse ] = useState(null);
-
+    
     // function for all api requests
     function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
         // base url
