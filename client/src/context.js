@@ -100,7 +100,9 @@ export const Provider = (props) => {
         const response = await api(`/courses/${id}`);
         
         if (response.status === 200) {
-            return response.json();
+            const course = response.json();
+            console.log(course);
+            return (course);
         } else if (response.status === 404) {
             return null;
         }
