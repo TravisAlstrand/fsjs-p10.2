@@ -21,7 +21,6 @@ const UpdateCourse = () => {
                     if (response === null) {
                         navigate('/notfound');
                     } else {
-                        console.log(response);
                         setCourse(response);
                     }
                 })
@@ -60,7 +59,7 @@ const UpdateCourse = () => {
                             <label htmlFor="courseTitle">Course Title</label>
                             <input id="courseTitle" name="courseTitle" type="text" defaultValue={course.title} onChange={e => setTitle(e.target.value)} />
 
-                            {/* <p>By {course.courseCreator.firstName} {course.courseCreator.lastName}</p> */}
+                            <p>By {course.courseCreator?.firstName} {course.courseCreator?.lastName}</p>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" defaultValue={course.description} onChange={e => setDescription(e.target.value)} />
