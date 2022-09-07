@@ -30,6 +30,8 @@ body {
     font-family: 'Work Sans', sans-serif;
     background-color: var(--main-bg);
     color: var(--main-text);
+
+    transition: background-color .4s ease;
 }
 h2 {
     font-size: 1.5rem;
