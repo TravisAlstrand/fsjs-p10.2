@@ -111,8 +111,6 @@ export const Provider = (props) => {
             return true;
         } else if (response.status === 400) {
             return response.json();
-        } else if (response.status === 403) {
-            return 'no-auth';
         }
     }
 

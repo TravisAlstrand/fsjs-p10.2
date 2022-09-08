@@ -13,6 +13,7 @@ const UpdateCourse = () => {
     const [ description, setDescription ] = useState(course.description);
     const [ estimatedTime, setEstimatedTime ] = useState(course.estimatedTime);
     const [ materialsNeeded, setMaterialsNeeded ] = useState(course.materialsNeeded);
+    const [ errors, setErrors ] = useState([]);
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -41,10 +42,10 @@ const UpdateCourse = () => {
 
         actions.updateCourse(courseBody, id)
             .then(response => {
-                if (response === true) {
+                if (response.errors) {
+                    setErrors(response.errors);
+                } else if (response === true) {
                     navigate(`/courses/${id}`);
-                } else if (response === 'no-auth') {
-                    navigate('/forbidden');
                 }
             })
     };
@@ -53,6 +54,22 @@ const UpdateCourse = () => {
         <main>
             <div className="wrap">
                 <h2>Update Course</h2>
+
+                {errors.length > 0 ? (
+                    <div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {errors.map((error, index) => {
+                                return (
+                                    <li key={index}>{error}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                ) : (
+                    <></>
+                )}
+
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>

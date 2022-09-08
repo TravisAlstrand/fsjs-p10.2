@@ -37,12 +37,14 @@ h2 {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    text-align: center;
 }
 p {
     font-weight: 300;
     margin-bottom: 1.5rem;
     line-height: 1.5;
     hyphens: auto;
+    text-align: center;
 }
 a {
     color: var(--main-secondary);
@@ -159,6 +161,7 @@ header div.wrap {
     font-weight: 700;
     color: var(--main-secondary);
     text-shadow: 1px 1px 2px var(--main-text);
+    text-align: center;
 }
 .course--detail--list {
     font-weight: 300;
@@ -202,6 +205,9 @@ header div.wrap {
 }
 form {
     margin-bottom: 2.5rem;
+}
+form .button {
+    margin-inline: auto;
 }
 label {
     display: block;
@@ -296,11 +302,13 @@ input:focus, button:focus, .button:focus, textarea:focus {
     .course--detail--title {
         margin: 1.5rem 0 .5rem;
     }
-    .button {
+    .button,
+    form .button{
         margin: 0 .5rem 0 0;
         display: inline-block;
     }
     .theme-icon {
         max-width: 50px;
     }
+
 }
