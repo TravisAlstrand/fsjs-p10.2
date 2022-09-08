@@ -61,6 +61,7 @@ export const Provider = (props) => {
         }
     };
 
+    // function to create new user
     async function handleSignUp(body) {
         const response = await api('/users', 'POST', body);
 
@@ -83,6 +84,7 @@ export const Provider = (props) => {
     /* ------------- COURSE API CALLS ----------- */
     /* ========================================== */
 
+    // function to get all courses
     async function handleGetCourses() {
         const response = await api('/courses');
 
@@ -93,6 +95,7 @@ export const Provider = (props) => {
         } 
     }
 
+    // function to get single course
     async function handleGetCourse(id) {
         const response = await api(`/courses/${id}`);
         
@@ -104,6 +107,7 @@ export const Provider = (props) => {
         }
     };
 
+    // function to update course
     async function handleUpdateCourse(body, id) {
         const response = await api(`/courses/${id}`, 'PUT', body, true, {username: authedUsername, password: authedUserPassword});
 
@@ -114,6 +118,7 @@ export const Provider = (props) => {
         }
     }
 
+    // function to create new course
     async function handleCreateCourse(body) {
         const response = await api('/courses', 'POST', body, true, {username: authedUsername, password: authedUserPassword});
 
@@ -124,6 +129,7 @@ export const Provider = (props) => {
         }
     }
 
+    // function to delete course
     async function handleDeleteCourse(id) {
         const response = await api(`/courses/${id}`, 'DELETE', null, true, {username: authedUsername, password: authedUserPassword});
 
@@ -132,6 +138,7 @@ export const Provider = (props) => {
         }
     }
 
+    // return context provider with states and functions needed elsewhere
     return (
       <Context.Provider value={{
         user,

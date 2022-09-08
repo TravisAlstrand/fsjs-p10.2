@@ -14,7 +14,9 @@ const SignUp = () => {
     const [ password, setPassword ] = useState('');
     const [ errors, setErrors ] = useState([]);
 
+    // actions when form is submitted
     const handleSubmit = (e) => {
+        // prevent page from reloading
         e.preventDefault();
 
         // build object to send to signUp call
@@ -25,11 +27,13 @@ const SignUp = () => {
             password
         };
 
+        // call signUp action in context sending above object
         actions.signUp(userBody)
             .then(response => {
-                if (response.errors) {
-                    setErrors(response.errors);
+                if (response.errors) { /* if there were validation errors, set error state */
+                    setErrors(response.errors); 
                 } else {
+                    // if successful, sign user in and redirect to home page
                     actions.signIn(emailAddress, password);
                     navigate('/');
                 }
@@ -41,6 +45,7 @@ const SignUp = () => {
             <div className="form--centered">
                 <h2>Sign Up</h2>
 
+                {/* if there were validation errors, append them to page */}
                 {errors.length > 0 ? (
                     <div className="validation--errors">
                         <h3>Validation Errors</h3>

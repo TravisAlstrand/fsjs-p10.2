@@ -7,6 +7,7 @@ const Courses = () => {
     const { actions, courses } = useContext(Context);
 
     useEffect(() => {
+        // get all courses (stored in context state)
         const fetchCourses = async () => {
             await actions.getCourses();
         }
@@ -16,7 +17,7 @@ const Courses = () => {
     return (
         <main>
             <div className="wrap main--grid">
-                {/* map over courses here */}
+                {/* map over courses */}
                 {courses.map((course, index) => {
                     return(
                         <Link key={index} className="course--module course--link" to={`/courses/${course.id}`}>

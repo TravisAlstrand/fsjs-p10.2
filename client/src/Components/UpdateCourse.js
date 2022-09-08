@@ -16,22 +16,26 @@ const UpdateCourse = () => {
     const [ errors, setErrors ] = useState([]);
 
     useEffect(() => {
+        // get course based on URL params
         const fetchCourse = async () => {
             await actions.getCourse(id)
                 .then(response => {
-                    if (response === null) {
+                    if (response === null) { /* if a course is not found redirect to 404 page */
                         navigate('/notfound');
                     } else {
-                        setCourse(response);
+                        setCourse(response); /* set course state to response */
                     }
                 })
         };
         fetchCourse(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // actions that will happen when the form is submitted
     const handleSubmit = (e) => {
+        // prevent page from reloading
         e.preventDefault();
 
+        // object to send in PUT request
         const courseBody = {
             title,
             description,
@@ -40,12 +44,13 @@ const UpdateCourse = () => {
             userId: user.userId
         };
 
+        // call the update course function in context
         actions.updateCourse(courseBody, id)
             .then(response => {
-                if (response.errors) {
+                if (response.errors) { /* if there are validation errors, set them as errors state */
                     setErrors(response.errors);
                 } else if (response === true) {
-                    navigate(`/courses/${id}`);
+                    navigate(`/courses/${id}`); /* if successful, redirect to the course's detail page */
                 }
             })
     };
@@ -55,6 +60,7 @@ const UpdateCourse = () => {
             <div className="wrap">
                 <h2>Update Course</h2>
 
+                {/* append validation errors if there are any */}
                 {errors.length > 0 ? (
                     <div className="validation--errors">
                         <h3>Validation Errors</h3>

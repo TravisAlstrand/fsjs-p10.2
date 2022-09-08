@@ -8,6 +8,8 @@ const PrivateRoute = () => {
     const location = useLocation();
 
     return (
+        // if there is a signed in user, continue
+        // if not, redirect to sign in page, then go direct to where they were trying to go
         user ?
         <Outlet /> :
         <Navigate to={'/signin'} replace state={{from: location}} />

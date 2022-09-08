@@ -13,19 +13,24 @@ const SignIn = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    // actions when form is submitted
     function handleSubmit(e){
+        // prevent page from reloading
         e.preventDefault();
 
         // call sign in function
         actions.signIn(emailAddress, password)
             .then(response => {
+                // if successful, check if they were redirected to sign in page 
+                // and if so, push them to where they were trying to go
                 if (response !== null) {
                     if (location.state?.from) {
                         navigate(location.state.from);
                     } else {
-                        navigate('/');
+                        navigate('/'); /* if not, redirect to home page */
                     }
                 } else {
+                    // if there were validation errors, set error state
                     setError('Please try your credentials again');
                 };
             });
@@ -36,6 +41,7 @@ const SignIn = () => {
             <div className="form--centered">
                 <h2>Sign In</h2>
 
+                {/* if there was a validation error append to page */}
                 {error !== '' ? (
                     <p className="validation--errors">{error}</p> 
                 ) : (

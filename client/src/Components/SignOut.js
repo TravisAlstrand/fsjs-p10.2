@@ -8,6 +8,7 @@ const SignOut = () => {
 
     const navigate = useNavigate();
 
+    // call signOut action in context and redirect to home page
     useEffect(() => {
         actions.signOut();
         (navigate('/'));

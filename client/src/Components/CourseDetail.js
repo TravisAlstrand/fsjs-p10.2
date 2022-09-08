@@ -11,24 +11,26 @@ const CourseDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        // get course based on URL params
         const fetchCourse = async () => {
             await actions.getCourse(id)
                 .then(response => {
                     if (response === null) {
-                        navigate('/notfound');
+                        navigate('/notfound'); /* if no course was found, redirect to 404 page */
                     } else {
-                        setCourse(response);
+                        setCourse(response); /* if successful, set course state */
                     }
                 })
         };
         fetchCourse(); // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    // actions to delete course
     const deleteCourse = () => {
         actions.deleteCourse(course.id)
             .then(response => {
                 if (response === true) {
-                    navigate('/');
+                    navigate('/'); /* if successfull redirect to homepage */
                 }
             })
     }
@@ -38,6 +40,7 @@ const CourseDetail = () => {
             <main>
                 <div className="actions--bar">
                     <div className="wrap">
+                        {/* if the current user is the course owner, show these buttons */}
                         { user !== null && user.userId === course.userId ? (
                                 <>
                                     <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>

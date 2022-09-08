@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Context } from '../context';
 
@@ -13,17 +13,12 @@ const CreateCourse = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user === null) {
-            navigate('/');
-        }
-    });
-
-
+    // actions when form is submitted
     const handleSubmit = (e) => {
-
+        // prevent page from reloading
         e.preventDefault();
 
+        // object to send in POST request
         const courseBody = {
             title,
             description,
@@ -32,12 +27,13 @@ const CreateCourse = () => {
             userId: user.userId
         };
 
+        // call createCourse action in context
         actions.createCourse(courseBody)
             .then(response => {
                 if (response === true) {
-                    navigate('/');
+                    navigate('/'); /* if successful redirect to homepage */
                 } else if (response.errors) {
-                    setErrors(response.errors);
+                    setErrors(response.errors); /* if there were validation errors set error state */
                 }
             });
     }
@@ -47,20 +43,21 @@ const CreateCourse = () => {
             <div className="wrap">
                 <h2>Create Course</h2>
                 
-                    {errors.length > 0 ? (
-                        <div className="validation--errors">
-                            <h3>Validation Errors</h3>
-                            <ul>
-                                {errors.map((error, index) => {
-                                    return (
-                                        <li key={index}>{error}</li>
-                                    )
-                                })}
-                            </ul>
-                        </div>
-                    ) : (
-                        <></>
-                    )}
+                {/* if there are validation errors append them to page */}
+                {errors.length > 0 ? (
+                    <div className="validation--errors">
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {errors.map((error, index) => {
+                                return (
+                                    <li key={index}>{error}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                ) : (
+                    <></>
+                )}
 
 
                 <form onSubmit={handleSubmit}>
