@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
+
 import { Buffer } from 'buffer';
 
 export const Context = React.createContext();
@@ -16,6 +18,8 @@ export const Provider = (props) => {
 
     // state for all courses
     const [ courses, setCourses ] = useState([]);
+
+    const [ cookies, setCookie, removeCookie ] = useCookies();
     
     // function for all api requests
     function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
@@ -54,6 +58,11 @@ export const Provider = (props) => {
         if (response.status === 200) {
             setAuthedUsername(username);
             setAuthedUserPassword(password);
+
+            // set cookies if sign in was successful
+            setCookie('name', username, { path: '/' });
+            setCookie('password', password, { path: '/' });
+
             return response.json()
                 .then(data => setUser(data));
         } else if (response.status === 401) {
@@ -77,6 +86,8 @@ export const Provider = (props) => {
     function handleSignOut() {
         setAuthedUsername('');
         setAuthedUserPassword('');
+        removeCookie('name');
+        removeCookie('password');
         setUser(null);
     }
 
