@@ -79,7 +79,6 @@ export const Provider = (props) => {
         } else if (response.status === 400) {
             return response.json();
         }
-        
     };
 
     // function to sign out user

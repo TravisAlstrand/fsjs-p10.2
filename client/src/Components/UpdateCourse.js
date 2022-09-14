@@ -20,15 +20,18 @@ const UpdateCourse = () => {
         const fetchCourse = async () => {
             await actions.getCourse(id)
                 .then(response => {
+
+                    console.log(response); /* <<<< works... */
+
                     if (response === null) { /* if a course is not found redirect to 404 page */
                         navigate('/notfound');
                     } else {
                         setCourse(response); /* set course state to response */
 
-                        console.log(course);
+                        console.log(course); /* <<<< doesn't work... wtf */
                         
                         // if user is not course creator, redirect to forbidden
-                        if (user.userId !== course.id) {
+                        if (user.userId !== course.userId) {
                             navigate('/forbidden');
                         }
                     }
