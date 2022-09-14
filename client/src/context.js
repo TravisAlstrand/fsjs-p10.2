@@ -7,19 +7,13 @@ export const Context = React.createContext();
 
 export const Provider = (props) => {
 
-    // state for signed in user
-    const [ user, setUser ] = useState(null);
-
-    // state for username
-    const [ authedUsername, setAuthedUsername ] = useState('');
-
-    // state for password
-    const [ authedUserPassword, setAuthedUserPassword ] = useState('');
-
     // state for all courses
     const [ courses, setCourses ] = useState([]);
 
     const [ cookies, setCookie, removeCookie ] = useCookies();
+
+    // state for signed in user
+    const [ user, setUser ] = useState(cookies.user || null);
     
     // function for all api requests
     function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
@@ -56,15 +50,13 @@ export const Provider = (props) => {
         const response = await api('/users', 'GET', null, true, {username, password});
 
         if (response.status === 200) {
-            setAuthedUsername(username);
-            setAuthedUserPassword(password);
-
-            // set cookies if sign in was successful
-            setCookie('name', username, { path: '/' });
-            setCookie('password', password, { path: '/' });
 
             return response.json()
-                .then(data => setUser(data));
+                .then(data => {
+                    data.password = password;
+                    setCookie('user', data, { path: '/' });
+                    setUser(data);
+                })
         } else if (response.status === 401) {
             return null;
         }
@@ -83,10 +75,7 @@ export const Provider = (props) => {
 
     // function to sign out user
     function handleSignOut() {
-        setAuthedUsername('');
-        setAuthedUserPassword('');
-        removeCookie('name');
-        removeCookie('password');
+        removeCookie('user');
         setUser(null);
     }
 
@@ -119,7 +108,7 @@ export const Provider = (props) => {
 
     // function to update course
     async function handleUpdateCourse(body, id) {
-        const response = await api(`/courses/${id}`, 'PUT', body, true, {username: authedUsername, password: authedUserPassword});
+        const response = await api(`/courses/${id}`, 'PUT', body, true, {username: user.emailAddress, password: user.password});
 
         if (response.status === 204) {
             return true;
@@ -130,7 +119,7 @@ export const Provider = (props) => {
 
     // function to create new course
     async function handleCreateCourse(body) {
-        const response = await api('/courses', 'POST', body, true, {username: authedUsername, password: authedUserPassword});
+        const response = await api('/courses', 'POST', body, true, {username: user.emailAddress, password: user.password});
 
         if (response.status === 201) {
             return true;
@@ -141,7 +130,7 @@ export const Provider = (props) => {
 
     // function to delete course
     async function handleDeleteCourse(id) {
-        const response = await api(`/courses/${id}`, 'DELETE', null, true, {username: authedUsername, password: authedUserPassword});
+        const response = await api(`/courses/${id}`, 'DELETE', null, true, {username: user.emailAddress, password: user.password});
 
         if (response.status === 204) {
             return true;
