@@ -24,6 +24,13 @@ const UpdateCourse = () => {
                         navigate('/notfound');
                     } else {
                         setCourse(response); /* set course state to response */
+
+                        console.log(course);
+                        
+                        // if user is not course creator, redirect to forbidden
+                        if (user.userId !== course.id) {
+                            navigate('/forbidden');
+                        }
                     }
                 })
         };

@@ -265,6 +265,15 @@ input:focus, button:focus, .button:focus, textarea:focus {
     border-radius: .5rem;
     outline: 2px solid var(--secondary-hover);
 }
+.forbidden-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.forbidden-img {
+    align-self: center;
+    max-width: 541px;
+}
 
 @media screen and (min-width: 600px) {
     .header--signedin li {
