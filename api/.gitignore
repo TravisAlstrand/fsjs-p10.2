@@ -61,4 +61,3 @@ typings/
 .next
 
 # SQLite database file
-*.db
