@@ -18,7 +18,7 @@ export const Provider = (props) => {
     // function for all api requests
     function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
         // base url
-        const url = 'http://localhost:5000/api' + path;
+        const url = 'https://fsjs-p102-production.up.railway.app/api' + path;
 
         const options = {
             method,
